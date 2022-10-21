@@ -49,7 +49,7 @@ namespace Core.Services
 
         private void StartAllTask(CancellationToken token)
         {
-            while (WaitTask.Status != TaskStatus.RanToCompletion && WaitTask.Status != TaskStatus.Canceled)
+            while (WaitTask.Status != TaskStatus.RanToCompletion && !token.IsCancellationRequested)
             {
                 Task? task;
                 bool result = _queueWork.TryDequeue(out task);

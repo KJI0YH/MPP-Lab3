@@ -78,7 +78,15 @@ namespace Core.Services
             DirectoryInfo dirInfo = new DirectoryInfo(parent.Path);
 
             // Process all files in parent directory
-            FileInfo[] files = dirInfo.GetFiles();
+            FileInfo[] files; try
+            {
+                files = dirInfo.GetFiles();
+            }
+            catch (Exception)
+            {
+                // Does not have access to directory
+                return;
+            }
             foreach (FileInfo file in files)
             {
                 if (token.IsCancellationRequested)
@@ -88,7 +96,17 @@ namespace Core.Services
             }
 
             // Process all dirs in parent directory
-            DirectoryInfo[] dirs = dirInfo.GetDirectories();
+            DirectoryInfo[] dirs;
+            try
+            {
+                dirs = dirInfo.GetDirectories();
+            }
+            catch (Exception)
+            {
+                // Does not have access to directory
+                return;
+            }
+
             foreach (DirectoryInfo dir in dirs)
             {
                 if (token.IsCancellationRequested)
