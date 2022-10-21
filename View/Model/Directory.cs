@@ -12,5 +12,13 @@ namespace View.Model
             Size = size;
             SizeInPercent = sizeInPercent;
         }
+
+        public string IcoPath
+        {
+            get
+            {
+                return "Resources/folder.png";
+            }
+        }
     }
 }

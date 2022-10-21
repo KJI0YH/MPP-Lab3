@@ -1,17 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using View.ViewModel;
 
 namespace View
 {
@@ -23,6 +12,47 @@ namespace View
         public MainWindow()
         {
             InitializeComponent();
+            DataContext = new ApplicatioinViewModel();
+        }
+
+        private void ScrollViewer_PreviewMouseWheel(object? sender, System.Windows.Input.MouseWheelEventArgs e)
+        {
+            ScrollViewer sv = sender as ScrollViewer;
+            if (sv != null)
+            {
+                if (e.Delta > 0)
+                {
+                    if (e.RightButton == System.Windows.Input.MouseButtonState.Pressed)
+                    {
+                        sv.LineLeft();
+                    }
+                    else
+                    {
+                        sv.LineUp();
+                    }
+                }
+
+                else if (e.Delta < 0)
+                {
+                    if (e.RightButton == System.Windows.Input.MouseButtonState.Pressed)
+                    {
+                        sv.LineRight();
+                    }
+                    else
+                    {
+                        sv.LineDown();
+                    }
+                }
+            }
+        }
+
+        private void StackPanel_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            StackPanel sp = sender as StackPanel;
+            if (sp != null)
+            {
+                svTree.Height = sp.Height;
+            }
         }
     }
 }
