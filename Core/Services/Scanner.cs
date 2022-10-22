@@ -52,10 +52,11 @@ namespace Core.Services
 
             DirectoryInfo dirInfo = new DirectoryInfo(path);
             Node root = new Node(dirInfo.FullName, dirInfo.Name);
-            Task scanTask = new Task(Scan, new ScanInfo(root, _tokenSource.Token), _tokenSource.Token);
 
+            Task scanTask = new Task(Scan, new ScanInfo(root, _tokenSource.Token), _tokenSource.Token);
             _taskQueue.Add(scanTask);
 
+            // Start scanning
             _taskQueue.WaitTask.Start();
             _taskQueue.WorkTask.Start();
             _taskQueue.WaitTask.Wait(_tokenSource.Token);

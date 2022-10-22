@@ -9,7 +9,7 @@
         d:DataContext="{d:DesignInstance Type=viewmodel:ApplicatioinViewModel}"
         mc:Ignorable="d"
         Title="Directory scanner" Height="450" Width="800">
-    <StackPanel SizeChanged="StackPanel_SizeChanged">
+    <StackPanel>
         <StackPanel Height="91" HorizontalAlignment="Stretch">
 
             <StackPanel Orientation="Horizontal">

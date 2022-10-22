@@ -45,14 +45,5 @@ namespace View
                 }
             }
         }
-
-        private void StackPanel_SizeChanged(object sender, SizeChangedEventArgs e)
-        {
-            StackPanel sp = sender as StackPanel;
-            if (sp != null)
-            {
-                svTree.Height = sp.Height;
-            }
-        }
     }
 }
