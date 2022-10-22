@@ -41,8 +41,15 @@ namespace Core.Services
                 bool result = _queueWait.TryDequeue(out task);
                 if (result && task != null)
                 {
-                    task.Wait(token);
-                    _semaphore.Release();
+                    try
+                    {
+                        task.Wait(token);
+                        _semaphore.Release();
+                    }
+                    catch (TaskCanceledException)
+                    {
+                        return;
+                    }
                 }
             }
         }
@@ -55,8 +62,15 @@ namespace Core.Services
                 bool result = _queueWork.TryDequeue(out task);
                 if (result && task != null)
                 {
-                    _semaphore.Wait(token);
-                    task.Start();
+                    try
+                    {
+                        _semaphore.Wait(token);
+                        task.Start();
+                    }
+                    catch (TaskCanceledException)
+                    {
+                        return;
+                    }
                 }
             }
         }

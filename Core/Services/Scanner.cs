@@ -58,8 +58,8 @@ namespace Core.Services
 
             _taskQueue.WaitTask.Start();
             _taskQueue.WorkTask.Start();
-            _taskQueue.WaitTask.Wait();
-            _taskQueue.WorkTask.Wait();
+            _taskQueue.WaitTask.Wait(_tokenSource.Token);
+            _taskQueue.WorkTask.Wait(_tokenSource.Token);
 
             return new FileTree(root);
         }
