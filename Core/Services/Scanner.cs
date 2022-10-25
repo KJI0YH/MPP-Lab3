@@ -79,7 +79,8 @@ namespace Core.Services
             DirectoryInfo dirInfo = new DirectoryInfo(parent.Path);
 
             // Process all files in parent directory
-            FileInfo[] files; try
+            FileInfo[] files;
+            try
             {
                 files = dirInfo.GetFiles();
             }
